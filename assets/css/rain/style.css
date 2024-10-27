@@ -1,0 +1,94 @@
+.ch_slider {
+  perspective: 50vh;
+  perspective-origin: center center;
+  --duree-chute-goutte: 1s;
+  --couleur-goutte: white;
+  overflow:hidden;
+}
+
+
+#air {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#sol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200%;
+  height: 50vh;
+  position: absolute;
+  left: -50%;
+  bottom: 0;
+  transform: rotateX(90deg);
+  transform-origin: bottom center;
+}
+
+@keyframes averse {
+  0% { transform: translate3D(calc(var(--provenance) * 1px - var(--coeff-distance) * 1px), 0, 0) }
+  100% { transform: translate3D(calc(-1 * var(--coeff-distance) * 1px), calc(var(--bottom) * 1px + var(--safe-zone)), 0) }
+}
+
+.goutte {
+  width: calc(var(--coeff-distance) * 2px);
+  height: calc(var(--coeff-distance) * 5px);
+  background: var(--couleur-goutte);
+  position: absolute;
+  --coeff-distance: 1;
+  --safe-zone: 5px;
+  top: calc(-1 * var(--safe-zone));
+  transform: translate3D(0, 0, 0);
+}
+
+.boucle .goutte {
+  animation: averse var(--duree-chute-goutte) linear calc((-1 + var(--delay)) * var(--duree-chute-goutte)) infinite;
+}
+
+@keyframes onde {
+  0% { transform: translate3D(0, 0, 0) scale(0); opacity: 1; }
+  20% { transform: translate3D(0, 0, 0) scale(.5); opacity: 0; }
+}
+
+.encyclie {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: calc(var(--top) * 1px - 30px);
+  left: calc(var(--left) * 1px - 30px);
+}
+
+.point-de-chute {
+  width: 2px;
+  height: 2px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.onde {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--couleur-goutte);
+  opacity: 0;
+  position: absolute;
+  transform: translate3D(0, 0, 0) scale(0);
+}
+
+.boucle .onde {
+  --safe-time: .005s; /* Pour éviter un très court instant de vide quand la goutte disparaît et l'encyclie apparaît */
+  animation: onde var(--duree-chute-goutte) linear calc(var(--delay) * var(--duree-chute-goutte) - var(--safe-time)) infinite;
+}
+
+.method {
+  color: white;
+  position: absolute;
+  z-index: 2;
+}
