@@ -158,7 +158,7 @@ button.px-btn1:hover {
 
 /* banner section css start */
 .px-banner-wrapper {
-    background-image: url(https://dummyimage.com/1920x950);
+    background-image: url('../images/demo-3/banner.png');
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
